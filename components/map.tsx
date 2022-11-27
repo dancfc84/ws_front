@@ -16,6 +16,8 @@ type MapOptions = google.maps.MapOptions;
 
 export default function Map() {
 
+  const [office, setOffice ] = useState<LatLngLiteral>();
+
   //useRef allows you to persist values between renders, does not cause re-renders, so we stay at the same location..
   const mapRef = useRef<GoogleMap>();
 
@@ -43,7 +45,16 @@ export default function Map() {
     <div className="container">
       <div className="controls">
         <h1>Find location</h1>
-        <Places />
+        <Places
+/* 
+          pass it to a function because we want to setstate AND panto that position */
+          
+          setOffice={(position => {
+            setOffice(position);
+            mapRef.current?.panTo(position);
+
+          })}
+        />
       </div>
       <div className="map">
         <GoogleMap

@@ -10,7 +10,7 @@ export default function Home() {
     libraries: ["places"],
   });
 
-  //this checks if the useLoadScript worked...
+  //this checks if the useLoadScript worked...if it did returns map component
   if (!isLoaded) return <div>Loading...</div>;
   return <Map />;
   

@@ -2,6 +2,8 @@ import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from "use-places-autocomplete";
+
+
 import {
   Combobox,
   ComboboxInput,
@@ -31,11 +33,27 @@ export default function Places({ setOffice }: PlacesProps) {
   } = usePlacesAutocomplete();
 
   console.log(status, data);
-  
 
+  //combobox allows you to look up places and get suggestions for those places
+  return (
 
+    <Combobox onSelect={() => {}}>
+      <ComboboxInput
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        className="combobox-input"
+        disabled={!ready}
+        placeholder="find location"
+      />
 
-  return <Combobox onSelect={() => {}}>
-    <ComboboxInput value={value} onChange={e => setValue(e.target.value)} className="combobox-input" disabled={!ready} placeholder="find location"/>
-  </Combobox>;
+      <ComboboxPopover>
+        <ComboboxList>
+          {status === "OK" && 
+            data.map(({ place_id, description }) => (
+              <ComboboxOption key={place_id} value={description}/>
+            ))}
+        </ComboboxList>
+      </ComboboxPopover>
+    </Combobox>
+  );
 }
