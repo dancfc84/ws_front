@@ -38,6 +38,8 @@ export default function Map() {
     []
 
   );
+  console.log(office);
+  const testCoords = {lat: 28, lng: 77};
 
   const onLoad = useCallback((map) => (mapRef.current = map), []);
 
@@ -48,7 +50,7 @@ export default function Map() {
         <Places
 /* 
           pass it to a function because we want to setstate AND panto that position */
-          
+
           setOffice={(position => {
             setOffice(position);
             mapRef.current?.panTo(position);
@@ -63,7 +65,16 @@ export default function Map() {
           options={options}
           mapContainerClassName="map-container"
           onLoad={onLoad}
-        ></GoogleMap>
+        >
+          {/* If there is an office show the marker */}
+          {office && <Marker position={office} /* icon={} *//>}
+
+          <Marker position={testCoords} />
+
+          
+
+
+        </GoogleMap>
       </div>
     </div>
   );
@@ -77,36 +88,5 @@ const defaultOptions = {
   editable: false,
   visible: true,
 };
-const closeOptions = {
-  ...defaultOptions,
-  zIndex: 3,
-  fillOpacity: 0.05,
-  strokeColor: "#8BC34A",
-  fillColor: "#8BC34A",
-};
-const middleOptions = {
-  ...defaultOptions,
-  zIndex: 2,
-  fillOpacity: 0.05,
-  strokeColor: "#FBC02D",
-  fillColor: "#FBC02D",
-};
-const farOptions = {
-  ...defaultOptions,
-  zIndex: 1,
-  fillOpacity: 0.05,
-  strokeColor: "#FF5252",
-  fillColor: "#FF5252",
-};
 
-const generateHouses = (position: LatLngLiteral) => {
-  const _houses: Array<LatLngLiteral> = [];
-  for (let i = 0; i < 100; i++) {
-    const direction = Math.random() < 0.5 ? -2 : 2;
-    _houses.push({
-      lat: position.lat + Math.random() / direction,
-      lng: position.lng + Math.random() / direction,
-    });
-  }
-  return _houses;
-};
+
