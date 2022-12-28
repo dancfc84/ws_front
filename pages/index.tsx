@@ -2,7 +2,7 @@ import { useLoadScript } from "@react-google-maps/api";
 import Map from "../components/map";
 
 
-//we have mentioned here that we want to use the places library - places enables your application to search for places such as establishments, geographic locations, or prominent points of interest, within a defined area
+//In useLoadScript we want to use the places library - places enables your application to search for places such as establishments, geographic locations, or prominent points of interest, within a defined area
 
 export default function Home() {
   const { isLoaded } = useLoadScript({
